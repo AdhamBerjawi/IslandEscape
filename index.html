@@ -23,7 +23,24 @@
         <div id="unity-build-title">Island Escape</div>
       </div>
     </div>
+	
+	<script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore-compat.js"></script>
     <script>
+
+		// Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyA5lg1XGTv0almnaN8WosaJOI9XhDy9W_g",
+            authDomain: "islandescape-a5198.firebaseapp.com",
+            projectId: "islandescape-a5198",
+            storageBucket: "islandescape-a5198.firebasestorage.app",
+            messagingSenderId: "1006714574170",
+            appId: "1:1006714574170:web:f055d2dbc9ac7868810f63",
+            measurementId: "G-RP5ZXG19V4"
+        };
+
+        const firebaseApp = firebase.initializeApp(firebaseConfig);
+        const db = firebaseApp.firestore();
 
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
@@ -57,15 +74,15 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/IslandEscape Web build.loader.js";
+      var loaderUrl = buildUrl + "/IslandEscape3DWebGLBuild.loader.js";
       var config = {
-        dataUrl: buildUrl + "/IslandEscape Web build.data",
-        frameworkUrl: buildUrl + "/IslandEscape Web build.framework.js",
-        codeUrl: buildUrl + "/IslandEscape Web build.wasm",
+        dataUrl: buildUrl + "/IslandEscape3DWebGLBuild.data",
+        frameworkUrl: buildUrl + "/IslandEscape3DWebGLBuild.framework.js",
+        codeUrl: buildUrl + "/IslandEscape3DWebGLBuild.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Sanity Illicit",
         productName: "Island Escape",
-        productVersion: "1.0",
+        productVersion: "1.1",
         showBanner: unityShowBanner,
       };
 
@@ -115,6 +132,7 @@
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
               }).then((unityInstance) => {
+			  window.unityInstance = unityInstance;
                 loadingBar.style.display = "none";
                 fullscreenButton.onclick = () => {
                   unityInstance.SetFullscreen(1);
